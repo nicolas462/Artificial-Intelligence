@@ -1,0 +1,32 @@
+hombre(nicolas).
+hombre(jhon).
+hombre(fernando).
+hombre(edwin).
+hombre(wilson).
+hombre(julio).
+mujer(olga).
+mujer(mery).
+mujer(sandra).
+mujer(fernanda).
+mujer(maria).
+mujer(blanca).
+
+es_conyuge_de(fernando,blanca).
+es_conyuge_de(wilson,olga).
+es_conyuge_de(julio,mery).
+
+es_padre_de(wilson,jhon).
+es_padre_de(wilson,nicolas).
+es_padre_de(fernando,olga).
+es_padre_de(fernando,sandra).
+es_padre_de(fernando,fernanda).
+es_padre_de(fernando,edwin).
+es_padre_de(julio,wilson).
+es_padre_de(edwin,maria).
+
+es_madre_de(X,Y) :- es_padre_de(P,Y), es_conyuge_de(P,X).
+es_hermano_de(X,Y) :- es_padre_de(P,X), es_padre_de(P,Y).
+es_tio_de(X,Y) :-  es_hermano_de(X,M), es_madre_de(M,Y).
+es_abuelo_de(X,Y) :- (es_padre_de(P,Y), es_padre_de(X,P));(es_madre_de(P,Y), es_padre_de(X,P)).
+es_abuela_de(X,Y) :- (es_padre_de(P,Y), es_madre_de(X,P));(es_madre_de(P,Y), es_madre_de(X,P)).
+es_primo_de(X,Y) :- es_padre_de(M,X), es_tio_de(M,Y).
